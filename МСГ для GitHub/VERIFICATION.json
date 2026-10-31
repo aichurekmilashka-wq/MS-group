@@ -1,0 +1,12 @@
+{
+  "pages": 27,
+  "category_groups": 15,
+  "internal_references_verified": 3403,
+  "catalogue_and_roof_model_tests_passed": 17,
+  "cross_page_cart_model_tests_passed": 4,
+  "category_search_cases_passed": 6,
+  "controller_simulation": "product → cart with storage disabled; 12.5 m = 950 som; quantity update to 24 m = 1824 som; invalid quantity disables sending",
+  "browser_visual_check": "unavailable in this environment",
+  "roof_prices": "on request until new price list",
+  "published": false
+}
