@@ -1,0 +1,43 @@
+/* Glyph Portal © 2026 Christian Katzmann. MIT. Native preview styles. */
+
+        :where(#msg-portal){--gp-paper:#fff;--gp-ink:#0c1212;--gp-field:#0b3b2a;--gp-foreground:#fbfbfa;position:relative;isolation:isolate;background:var(--gp-paper);color:var(--gp-ink);font-family:Arial,sans-serif;}
+        :where(#msg-portal)>[data-gp-viewport]{position:absolute;inset:0 auto auto 0;height:100vh;height:100svh;width:0;pointer-events:none;visibility:hidden;}
+        :where(#msg-portal) [data-gp-pin]{position:relative;height:var(--gp-height,100svh);overflow:clip;isolation:isolate;container-type:size;}
+        :where(#msg-portal) [data-gp-field]{position:absolute;inset:0;background:var(--gp-field);opacity:0;pointer-events:none;}
+        :where(#msg-portal)[data-gp-ready] [data-gp-field]{opacity:1;}
+        :where(#msg-portal) [data-gp-art]{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;}
+        :where(#msg-portal) [data-gp-marks]{fill:none;stroke:var(--gp-ink);opacity:.6;}
+        :where(#msg-portal) [data-gp-choices]{position:absolute;inset:0;visibility:hidden;pointer-events:none;}
+        :where(#msg-portal)[data-gp-choosing=true] [data-gp-choices]{visibility:visible;}
+        :where(#msg-portal) [data-gp-letter]{box-sizing:border-box;position:absolute;border:0;padding:0;margin:0;background:transparent;cursor:pointer;pointer-events:auto;touch-action:pan-y;}
+        :where(#msg-portal) [data-gp-letter]:disabled{pointer-events:none;}
+        :where(#msg-portal) [data-gp-letter]:focus-visible{outline:2px solid var(--gp-field);outline-offset:5px;}
+        :where(#msg-portal) [data-gp-touch-picker]{display:none;position:absolute;top:calc(var(--gp-word-bottom,50%) + 42px);left:50%;transform:translateX(-50%);font:12px/1.4 Arial,sans-serif;align-items:center;gap:12px;visibility:hidden;}
+        :where(#msg-portal)[data-gp-choosing=true] [data-gp-touch-picker]{visibility:visible;}
+        :where(#msg-portal) [data-gp-select]{min-height:44px;min-width:90px;border:1px solid #d8deda;border-radius:4px;background:var(--gp-paper);color:var(--gp-ink);padding:0 10px;font:inherit;}
+        :where(#msg-portal) [data-gp-select]:focus-visible{outline:2px solid var(--gp-field);outline-offset:4px;}
+        @media(any-pointer:coarse){:where(#msg-portal) [data-gp-touch-picker]{display:flex;}}
+        :where(#msg-portal) [data-gp-fallback]{position:absolute;inset:0;display:none;place-items:center;font-size:min(calc(100cqw / var(--gp-characters)),38cqh);line-height:1;color:var(--gp-field);}
+        :where(#msg-portal)[data-gp-ready] [data-gp-fallback]{visibility:hidden;}
+        :where(#msg-portal) [data-gp-caption]{position:absolute;inset:auto 8% 9%;display:flex;align-items:center;justify-content:space-between;gap:1rem;font:12px/1.4 Arial,sans-serif;opacity:var(--gp-caption,1);pointer-events:var(--gp-caption-hit,auto);}
+        :where(#msg-portal) [data-gp-caption]{font-family:inherit;}
+        :where(#msg-portal) [data-gp-front]{position:absolute;inset:0;opacity:var(--gp-caption,1);pointer-events:none;}
+        :where(#msg-portal) [data-gp-front] a,:where(#msg-portal) [data-gp-front] button{pointer-events:var(--gp-caption-hit,auto);}
+        :where(#msg-portal) [data-gp-front]:focus-within{opacity:1;}
+        :where(#msg-portal) [data-gp-hint]{max-width:30ch;color:var(--gp-ink);}
+        :where(#msg-portal) [data-gp-enter]{display:inline-flex;align-items:center;gap:16px;min-height:44px;color:inherit;font:inherit;text-decoration:none;letter-spacing:inherit;}
+        :where(#msg-portal) [data-gp-enter]:focus-visible{outline:2px solid currentColor;outline-offset:5px;}
+        :where(#msg-portal) [data-gp-caption]:focus-within{opacity:1;pointer-events:auto;}
+        :where(#msg-portal) [data-gp-enter]:focus-visible{background:var(--gp-paper);color:var(--gp-ink);padding:0 12px;margin:0 -12px;}
+        :where(#msg-portal) [data-gp-content]{box-sizing:border-box;position:relative;min-height:var(--gp-height,100svh);padding:clamp(32px,7%,100px);display:grid;align-content:center;color:var(--gp-foreground);background:var(--gp-field);overflow-wrap:anywhere;}
+        :where(#msg-portal)[data-gp-motion=on] [data-gp-pin]{position:sticky;top:0;}
+        :where(#msg-portal)[data-gp-motion=off] [data-gp-hint]{display:none;}
+        :where(#msg-portal)[data-gp-motion=on] [data-gp-content]{margin-top:calc((var(--gp-length) - 1) * var(--gp-height));background:transparent;opacity:var(--gp-reveal,0);pointer-events:none;}
+        :where(#msg-portal)[data-gp-motion=on][data-gp-entered=true] [data-gp-content]{pointer-events:auto;}
+        :where(#msg-portal)[data-gp-motion=on]:has([data-gp-content]:focus-within) [data-gp-field]{clip-path:none!important;}
+        :where(#msg-portal)[data-gp-motion=on] [data-gp-content]:focus-within{opacity:1;pointer-events:auto;}
+        :where(#msg-portal):has([data-gp-content]:focus-within) [data-gp-caption],:where(#msg-portal):has([data-gp-content]:focus-within) [data-gp-marks]{opacity:0;}
+        :where(#msg-portal) [data-gp-default-title]{color:inherit;font:400 clamp(32px,5vw,72px)/1.05 Georgia,serif;letter-spacing:-.035em;max-width:13ch;margin:0 0 24px;text-wrap:balance;}
+        :where(#msg-portal) [data-gp-default-copy]{color:inherit;font:16px/1.6 Arial,sans-serif;max-width:36ch;margin:0;}
+        @media(prefers-reduced-motion:reduce){:where(#msg-portal) [data-gp-pin]{position:relative!important;} :where(#msg-portal) [data-gp-content]{margin-top:0!important;opacity:1!important;background:var(--gp-field)!important;min-height:0;padding-block:64px;} :where(#msg-portal) [data-gp-caption]{opacity:1!important;}}
+        @media(prefers-reduced-motion:reduce){:where(#msg-portal) [data-gp-hint]{display:none;}}
