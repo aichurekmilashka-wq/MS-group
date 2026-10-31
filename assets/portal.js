@@ -1,10 +1,17 @@
 /* Glyph Portal © 2026 Christian Katzmann. MIT.
  * Offline adapter of components/ui/glyph-portal.tsx; algorithm derived from the supplied component. */
-(()=>{
+(async()=>{
  const clamp=(n,a=0,b=1)=>Math.min(b,Math.max(a,n));
  const smooth=(a,b,n)=>{const t=clamp((n-a)/(b-a));return t*t*(3-2*t);};
- const DEFAULT_FONT='"Arial Black", "Arial", sans-serif';
- const uid='msg-portal',clipId='msg-portal-clip',text='МСГ',fontFamily=DEFAULT_FONT,weight=900,length=2.4,interactive=true,hasFront=true,focusChar=undefined;
+ const DEFAULT_FONT='Arial, sans-serif';
+ const family='"Glyph Portal Jakarta", Arial, sans-serif';
+ let fontFamily=DEFAULT_FONT;
+ try{
+  const face=new FontFace('Glyph Portal Jakarta','url("https://cdn.21st.dev/assets/mirror/15/153fc85b70298beeb1d61a5f723331649e7f23bb77302a66e61cb3e2fbdb5e79.woff2")',{weight:'400 700'});
+  const loaded=await Promise.race([face.load().then(font=>{document.fonts.add(font);return true;}).catch(()=>false),new Promise(resolve=>setTimeout(()=>resolve(false),1600))]);
+  if(loaded)fontFamily=family;
+ }catch{}
+ const uid='msg-portal',clipId='msg-portal-clip',text='МСГ',weight=700,length=2.4,interactive=true,hasFront=true,focusChar=undefined;
 function interior(context, char, font) {
   const canvas = context.canvas;
   context.font = font;
@@ -68,6 +75,7 @@ function scrollParent(element) {
     let bounds = { x: 0, y: 0, width: 1, height: 1 };
     let fontDirty = true;
     glyph.style.fontFamily = fontFamily;
+    glyph.style.fontWeight = String(weight);
     const computedFamily = getComputedStyle(glyph).fontFamily;
     const families = computedFamily.match(/(?:[^,"']+|"[^"]*"|'[^']*')+/g) ?? [];
     const available = families.filter((family) => {
@@ -171,7 +179,7 @@ function scrollParent(element) {
       art.setAttribute("viewBox", `0 0 ${W} ${H}`);
       if (fontDirty) { ready = readInk(); fontDirty = false; }
       if (!ready) return;
-      const wordHeight = hasFront && H < 480 ? Math.min(H * .38, Math.max(24, H - 264)) : H * .38;
+      const wordHeight = hasFront && H < 480 ? Math.min(H * .38, Math.max(24, H - 264)) : Math.min(H * .24, 190);
       startScale = Math.min(W * 0.84 / bounds.width, wordHeight / bounds.height);
       select(target);
       for (const button of buttons) {
